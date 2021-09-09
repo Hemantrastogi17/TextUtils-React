@@ -28,6 +28,10 @@ export default function Form(props) {
         text.select();
         navigator.clipboard.writeText(text.value)
         setCopyButton("Copied")
+        setTimeout(()=>{
+            setCopyButton("Copy")
+        },1000)
+        
         props.showAlert("Copied to Clipboard","success")
 
     }
@@ -49,15 +53,15 @@ export default function Form(props) {
                     <textarea className="form-control" value={text} onChange={handleOnChange} id="mybox" rows="8" style={{backgroundColor: props.mode === 'light'?'white':'#00001a',color: props.mode==='light'?'black':'white'}}></textarea>
                     <button onClick={handleCopy} value={copyButton} type="button">{copyButton}</button>
                 </div>
-                <button className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleClearClick}>Clear Text</button>
-                <button className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleUpClick}>UPPERCASE</button>
-                <button className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleLowClick}>lowercase</button>
-                <button className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+                <button disabled={text.length ===0} className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleClearClick}>Clear Text</button>
+                <button disabled={text.length ===0} className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleUpClick}>UPPERCASE</button>
+                <button disabled={text.length ===0} className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleLowClick}>lowercase</button>
+                <button disabled={text.length ===0} className={`btn btn-${props.mode=== 'dark'?'warning':'primary'} my-2 mx-2`} onClick={handleExtraSpaces}>Remove Extra Spaces</button>
             </div>
             <hr className="rounded" size="6"/>
             <div className="container my-3" style={{color: props.mode === 'dark'?'white':'black'}}>
                 <h2><pre>Text Summary</pre></h2>
-                <h5><pre>Word Count: {text.length>0?text.split(" ").length:0}  Character Count: {text.length}</pre></h5>
+                <h5><pre>Word Count: {text.split(" ").filter((element)=>{return element.length!==0}).length}  Character Count: {text.length}</pre></h5>
                 <pre>{text.length>0?Math.ceil(0.008 * text.split(" ").length):0} minute read</pre>
                 <hr className="rounded" size="6" />
 
