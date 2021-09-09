@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 export default function Form(props) {
     const handleUpClick = () => {
-        console.log("Uppercase is clicked" + text);
+        console.log(" Uppercase is clicked" + text);
         let newText = text.toUpperCase();
         setText(newText);
-        props.showAlert("Converted to Uppercase","success")
+        props.showAlert(" Converted to Uppercase","success")
     }
     const handleOnChange = (event) => {
-        console.log("Change detected");
+        console.log(" Change detected");
         setText(event.target.value)
 
     }
@@ -16,7 +16,7 @@ export default function Form(props) {
         console.log("Lowercase is clicked" + text);
         let newText = text.toLowerCase();
         setText(newText);
-        props.showAlert("Converted to Lowercase","success")
+        props.showAlert(" Converted to Lowercase","success")
 
     }
     const handleClearClick = () => {
@@ -24,21 +24,20 @@ export default function Form(props) {
         setText(newText);
     }
     const handleCopy = () => {
-        let text = document.getElementById("mybox")
-        text.select();
-        navigator.clipboard.writeText(text.value)
+       
+        navigator.clipboard.writeText(text)
         setCopyButton("Copied")
         setTimeout(()=>{
             setCopyButton("Copy")
         },1000)
         
-        props.showAlert("Copied to Clipboard","success")
+        props.showAlert(" Copied to Clipboard","success")
 
     }
     const handleExtraSpaces = () => {
         let newText = text.split(/[ ]+/);
         setText(newText.join(" "));
-        props.showAlert("Extra spaces removed!", "success");
+        props.showAlert(" Extra spaces removed!", "success");
     }
     
     const [text, setText] = useState("")
@@ -61,7 +60,7 @@ export default function Form(props) {
             <hr className="rounded" size="6"/>
             <div className="container my-3" style={{color: props.mode === 'dark'?'white':'black'}}>
                 <h2><pre>Text Summary</pre></h2>
-                <h5><pre>Word Count: {text.split(" ").filter((element)=>{return element.length!==0}).length}  Character Count: {text.length}</pre></h5>
+                <h5><pre>Word Count: {text.split(/\s+/).filter((element)=>{return element.length!==0}).length}  Character Count: {text.length}</pre></h5>
                 <pre>{text.length>0?Math.ceil(0.008 * text.split(" ").length):0} minute read</pre>
                 <hr className="rounded" size="6" />
 
